@@ -14,7 +14,20 @@ class Sprite {
     }
 }
 
-class Sphere extends  Sprite {
+class Projectile extends Sprite {
+    constructor(x, y, radius, color, velocity){
+        super(x, y, radius, color)
+        this.velocity = velocity
+    }
+    update() {
+        this.draw()
+        this.x += this.velocity.x
+        this.y += this.velocity.y
+    }
+}
+
+
+class Sphere extends Sprite {
     constructor(x, y, radius, color, angleUpdateValue, player) {
         super(x, y, radius, color)
         this.angleUpdateValue = angleUpdateValue
@@ -28,11 +41,11 @@ class Sphere extends  Sprite {
         if(Math.abs(this.angle) >= Math.PI*2){
             this.angle = 0
         }
-        console.log()
         this.x = this.player.x + Math.cos(this.angle) * this.player.radius
         this.y = this.player.y + Math.sin(this.angle) * this.player.radius
     }
 }
+
 class Player extends Sprite {
     constructor(x, y, radius, color) {
         super(x, y, radius, color)
