@@ -21,12 +21,26 @@ cnv.addEventListener('click', (e) => {
     }
 
     projectiles.push(new Projectile(player.x, player.y, 3, '#48FCFF', velocity))
+    console.log(projectiles.length)
 })
+
+function checkOffScreen(projectile, index) {
+    const saiuPelaEsquerda = projectile.x + projectile.radius < 0
+    const saiuPelaDireita =  projectile.x - projectile.radius > cnv.width
+    const saiuPorCima =  projectile.y + projectile.radius < 0
+    const saiuPorBaixo =  projectile.y - projectile.radius > cnv.height
+
+    if(saiuPelaEsquerda || saiuPelaDireita || saiuPorCima || saiuPorBaixo) {
+        projectiles.splice(index, 1);
+        console.log(projectiles.length)
+    }
+}
 
 function checkProjectiles(){
     for (let i = projectiles.length -1; i >= 0; i--) {
         const p = projectiles[i]
         p.update()
+        checkOffScreen(p, i)
     }
 }
 
